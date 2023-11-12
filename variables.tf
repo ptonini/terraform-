@@ -25,3 +25,11 @@ variable "floating_ip" {
 variable "floating_ip_pool" {
   default = null
 }
+
+variable "volumes" {
+  type = map(object({
+    size                 = number
+    enable_online_resize = optional(bool, true)
+  }))
+  default = {}
+}
