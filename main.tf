@@ -25,16 +25,16 @@ resource "openstack_compute_instance_v2" "this" {
   }
 }
 
-resource "openstack_networking_floatingip_v2" "this" {
-  count = var.floating_ip ? var.instance_count : 0
-  pool  = var.floating_ip_pool
-}
-
-resource "openstack_compute_floatingip_associate_v2" "this" {
-  count       = var.floating_ip ? var.instance_count : 0
-  floating_ip = openstack_networking_floatingip_v2.this[count.index].address
-  instance_id = openstack_compute_instance_v2.this[count.index].id
-}
+# resource "openstack_networking_floatingip_v2" "this" {
+#   count = var.floating_ip ? var.instance_count : 0
+#   pool  = var.floating_ip_pool
+# }
+#
+# resource "openstack_compute_floatingip_associate_v2" "this" {
+#   count       = var.floating_ip ? var.instance_count : 0
+#   floating_ip = openstack_networking_floatingip_v2.this[count.index].address
+#   instance_id = openstack_compute_instance_v2.this[count.index].id
+# }
 
 resource "openstack_blockstorage_volume_v3" "this" {
   for_each             = local.volumes
